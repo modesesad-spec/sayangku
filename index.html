@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valentine Spesial - HANZ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top, #0a0f2a, #030514);
+            font-family: 'Georgia', 'Times New Roman', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animasi bintang */
+        .stars, .twinkling {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 0;
+        }
+
+        .stars {
+            background: black url('https://i.ibb.com/7y2LJxZ/stars.png') repeat top center;
+            z-index: 0;
+            animation: move-stars 200s linear infinite;
+        }
+
+        .twinkling {
+            background: transparent url('https://i.ibb.com/mT3h1cG/twinkling.png') repeat top center;
+            z-index: 1;
+            animation: move-twinkling 150s linear infinite;
+        }
+
+        @keyframes move-twinkling {
+            from { background-position: 0 0; }
+            to { background-position: -10000px 5000px; }
+        }
+
+        @keyframes move-stars {
+            from { background-position: 0 0; }
+            to { background-position: 10000px 5000px; }
+        }
+
+        /* Kontainer utama */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 650px;
+            width: 100%;
+            background: rgba(20, 10, 30, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: 50px 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(255, 215, 200, 0.2) inset;
+            border: 1px solid rgba(255, 220, 200, 0.15);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #fad0c4, #ffd1d1, #fbc2c2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 200, 220, 0.6);
+            font-weight: 400;
+        }
+
+        /* Nama */
+        .nama {
+            font-size: 2rem;
+            color: #fff5e6;
+            text-shadow: 0 0 15px #ffb7c5, 0 0 30px #ffc9a2;
+            margin: 15px 0 5px;
+            font-style: italic;
+        }
+
+        .tanggal {
+            color: rgba(255, 240, 220, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* Kotak puisi */
+        .puisi {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            padding: 45px 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 200, 180, 0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 40px rgba(255,190,200,0.2);
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: #fff9f0;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            line-height: 2;
+            text-shadow: 2px 2px 10px #1a0f1a;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 34px;
+            background-color: #ffb0c3;
+            margin-left: 6px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            box-shadow: 0 0 12px #ff99bb;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Footer */
+        .footer {
+            color: rgba(255, 235, 220, 0.6);
+            margin-top: 30px;
+            font-size: 1rem;
+            font-style: italic;
+            border-top: 1px dashed rgba(255, 200, 180, 0.3);
+            padding-top: 20px;
+        }
+
+        /* Tombol audio minimalis */
+        .audio-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 210, 200, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.6rem;
+            cursor: pointer;
+            border: 2px solid rgba(255, 230, 200, 0.6);
+            box-shadow: 0 0 25px #ffb6c1;
+            z-index: 20;
+            transition: 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: rgba(255, 200, 210, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background bintang -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <!-- Audio (PAKE LINK LU) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://archive.org/download/sayang_202602/ssstik.io_1771017361889.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Tombol audio kecil -->
+    <div class="audio-btn" onclick="toggleAudio()" id="audioBtn">🔊</div>
+
+    <!-- Kontainer utama -->
+    <div class="container">
+        <h1>❤️ HAPPY VALENTINE ❤️</h1>
+
+        <div class="nama">Untukmu, @1👑</div>
+        <div class="tanggal" id="tanggal"></div>
+
+        <!-- Puisi panjang (tanpa foto) -->
+        <div class="puisi">
+            <div class="typing-text" id="typingText"></div>
+            <span class="cursor"></span>
+        </div>
+
+        <div class="footer">
+            ✨ dengan segenap cinta, dari aku untukmu ✨
+        </div>
+    </div>
+
+    <script>
+        // ===== PUISI PANJANG DAN INDAH (3 BAGIAN) =====
+        const puisiPanjang = [
+            `Sayangku,
+
+Di malam yang sunyi ini, hanya namamu yang ku bisikkan pada bintang.
+Aku menuliskan rindu di setiap hela napas,
+dan berharap angin malam menyampaikannya padamu.
+
+Cinta ini sederhana, tapi sedalam samudra.
+Aku tak butuh kata-kata besar,
+cukup tatap matamu, dan dunia terasa sempurna.
+
+Kamu adalah puisi yang tak pernah selesai ku tulis.
+Setiap hari adalah bait baru yang indah.
+Setiap senyummu adalah cahaya di kegelapan.
+
+Terima kasih telah menjadi alasan aku percaya pada keajaiban.
+Di dunia yang kadang terasa keras,
+kamu adalah kelembutan yang selalu kurindu.
+
+Aku mencintaimu, bukan hanya karena siapa dirimu,
+tapi juga karena siapa diriku saat bersamamu.
+Kamu membuatku ingin menjadi lebih baik,
+hanya agar layak di sampingmu.
+
+Selamat Hari Valentine, cintaku.
+Semoga kita selalu bersama,
+hingga bintang tak lagi bersinar. ❤️`,
+
+            `Untukmu yang selalu di hati,
+
+Aku masih ingat pertama kali bertemu,
+seperti takdir yang mempertemukan dua insan.
+Matamu... ah, matamu seperti lautan,
+aku bisa tenggelam di dalamnya selamanya.
+
+Waktu terasa begitu cepat saat bersamamu,
+dan terasa begitu lambat saat kau tak di sisi.
+Rindu ini nyata, seperti detak jantungku,
+yang selalu berdetak untukmu.
+
+Aku ingin menjadi tempatmu pulang,
+saat dunia terasa lelah.
+Aku ingin menjadi alasanmu tersenyum,
+saat hari terasa kelabu.
+
+Kamu adalah mimpi yang jadi nyata,
+doa yang terkabul,
+dan cinta yang tak pernah kusangka akan datang.
+
+Di hari kasih sayang ini,
+aku hanya ingin kau tahu:
+bahwa kamu adalah rumah,
+tempat hatiku selalu ingin kembali.
+
+I love you, sayang. 💕`,
+
+            `Cintaku,
+
+Aku menulis ini di bawah langit malam,
+sambil berharap kamu juga sedang menatap bintang yang sama.
+Meski jarak memisahkan, hatiku selalu dekat denganmu.
+
+Kamu adalah alasan aku tersenyum di pagi hari,
+dan alasan aku tenang di malam hari.
+Setiap detik bersamamu adalah anugerah,
+yang tak akan pernah kusia-siakan.
+
+Aku mencintaimu dengan cara yang sederhana:
+dengan setia, dengan jujur, dan dengan sepenuh hati.
+Bukan karena kamu sempurna,
+tapi karena bersamamu, aku merasa sempurna.
+
+Terima kasih telah hadir,
+telah bertahan,
+dan telah mencintaiku apa adanya.
+
+Aku berjanji akan selalu menjagamu,
+dalam suka dan duka,
+dalam tawa dan air mata,
+sampai tua nanti.
+
+Selamat Hari Valentine, belahan jiwaku.
+You're my today and all of my tomorrows. 🌙`
+        ];
+
+        let indexPuisi = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentText = puisiPanjang[indexPuisi];
+            const typingElement = document.getElementById('typingText');
+
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 4000); // jeda 4 detik sebelum hapus
+                return;
+            }
+
+            if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                indexPuisi = (indexPuisi + 1) % puisiPanjang.length;
+                setTimeout(typeEffect, 500);
+                return;
+            }
+
+            const speed = isDeleting ? 15 : 30; // lebih lambat biar nikmat
+            setTimeout(typeEffect, speed);
+        }
+
+        // ===== AUDIO =====
+        let isPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const audioBtn = document.getElementById('audioBtn');
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audioBtn.innerHTML = '🔇';
+            } else {
+                audio.play();
+                audioBtn.innerHTML = '🔊';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // ===== JALANKAN SAAT HALAMAN DIBUKA =====
+        window.onload = function() {
+            // Mulai efek mengetik
+            setTimeout(typeEffect, 800);
+
+            // Tampilkan tanggal
+            const now = new Date();
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('tanggal').textContent = now.toLocaleDateString('id-ID', options);
+
+            // Usahakan autoplay
+            audio.volume = 0.4;
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    audioBtn.innerHTML = '🔊';
+                }).catch(() => {
+                    isPlaying = false;
+                    audioBtn.innerHTML = '🔇';
+                    document.body.addEventListener('click', function initAudio() {
+                        if (!isPlaying) {
+                            audio.play();
+                            isPlaying = true;
+                            audioBtn.innerHTML = '🔊';
+                        }
+                    }, { once: true });
+                });
+            }
+        };
+    </script>
+</body>
+</html>
